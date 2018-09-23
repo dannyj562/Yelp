@@ -10,15 +10,20 @@ import UIKit
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var businesses: [Business]!
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.backgroundColor = UIColor.red
+        navigationItem.titleView = searchBar
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
                 self.businesses = businesses
@@ -56,7 +61,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         cell.business = businesses[indexPath.row]
         return cell
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
